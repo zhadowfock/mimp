@@ -20,10 +20,10 @@ RUN apt-get update && apt-get install -y \
 RUN a2enmod ssl
 
 # Instala oci8
-COPY instantclient-basic-linux.x64-19.23.0.0.0dbru.zip /tmp/
-COPY instantclient-sdk-linux.x64-19.23.0.0.0dbru.zip /tmp/
-RUN unzip /tmp/instantclient-basic-linux.x64-19.23.0.0.0dbru.zip -d /opt/oracle \
-    && unzip /tmp/instantclient-sdk-linux.x64-19.23.0.0.0dbru.zip -d /opt/oracle \
+COPY instantclient-basic-linux.x64-19.28.0.0.0dbru.zip /tmp/
+COPY instantclient-sdk-linux.x64-19.28.0.0.0dbru.zip /tmp/
+RUN unzip /tmp/instantclient-basic-linux.x64-19.28.0.0.0dbru.zip -d /opt/oracle \
+    && unzip /tmp/instantclient-sdk-linux.x64-19.28.0.0.0dbru.zip -d /opt/oracle \
     && ln -s /opt/oracle/instantclient_19_23 /opt/oracle/instantclient \
     && echo /opt/oracle/instantclient > /etc/ld.so.conf.d/oracle-instantclient.conf \
     && ldconfig \
@@ -32,4 +32,5 @@ RUN unzip /tmp/instantclient-basic-linux.x64-19.23.0.0.0dbru.zip -d /opt/oracle 
 
 # Limpieza
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/*.zip
+
 
