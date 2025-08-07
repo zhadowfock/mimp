@@ -1,6 +1,6 @@
 FROM php:8.3-apache
 
-# Instalar dependencias necesarias
+# Instala dependencias necesarias
 RUN apt-get update && apt-get install -y \
     unzip \
     libzip-dev \
@@ -13,22 +13,23 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     libcurl4-openssl-dev \
     zlib1g-dev \
-    && docker-php-ext-install zip mbstring json fileinfo openssl
+    && docker-php-ext-configure zip \
+    && docker-php-ext-install zip mbstring json fileinfo intl curl
 
-# Configurar Oracle Instant Client
-ENV LD_LIBRARY_PATH=/usr/lib/oracle/19.22/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
-ENV ORACLE_HOME=/usr/lib/oracle/19.22/client64
+# Habilita SSL para Apache
+RUN a2enmod ssl
 
-RUN mkdir -p /opt/oracle \
-    && cd /opt/oracle \
-    && wget https://download.oracle.com/otn_software/linux/instantclient/1919000/instantclient-basic-linux.x64-19.19.0.0.0dbru.zip \
-    && wget https://download.oracle.com/otn_software/linux/instantclient/1919000/instantclient-sdk-linux.x64-19.19.0.0.0dbru.zip \
-    && unzip instantclient-basic-linux.x64-*.zip -d /opt/oracle \
-    && unzip instantclient-sdk-linux.x64-*.zip -d /opt/oracle \
-    && ln -s /opt/oracle/instantclient_19_19 /usr/lib/oracle/19.22/client64 \
-    && echo /usr/lib/oracle/19.22/client64/lib > /etc/ld.so.conf.d/oracle-instantclient.conf \
-    && ldconfig
+# Instala oci8
+COPY instantclient-basic-linux.x64-19.23.0.0.0dbru.zip /tmp/
+COPY instantclient-sdk-linux.x64-19.23.0.0.0dbru.zip /tmp/
+RUN unzip /tmp/instantclient-basic-linux.x64-19.23.0.0.0dbru.zip -d /opt/oracle \
+    && unzip /tmp/instantclient-sdk-linux.x64-19.23.0.0.0dbru.zip -d /opt/oracle \
+    && ln -s /opt/oracle/instantclient_19_23 /opt/oracle/instantclient \
+    && echo /opt/oracle/instantclient > /etc/ld.so.conf.d/oracle-instantclient.conf \
+    && ldconfig \
+    && docker-php-ext-configure oci8 --with-oci8=instantclient,/opt/oracle/instantclient \
+    && docker-php-ext-install oci8
 
-# Instalar oci8
-RUN echo "instantclient,/usr/lib/oracle/19.22/client64/lib" | pecl install oci8 \
-    && docker-php-ext-enable oci8
+# Limpieza
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/*.zip
+
