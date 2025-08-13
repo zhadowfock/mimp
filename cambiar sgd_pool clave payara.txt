@@ -1,0 +1,30 @@
+ 1036  /home/payara/payara41/bin/asadmin list-jdbc-connection-pool-properties --poolname SGD_POOL
+ 1037  /home/payara/payara41/bin/asadmin list-jdbc
+ 1038  Command list-jdbc-connection-pool-properties failed.
+ 1039  /home/payara/payara41/bin/asadmin get server.resources.jdbc-connection-pool.*
+ 1040  /home/payara/payara41/bin/asadmin set server.resources.jdbc-connection-pool.SGD_POOL.property.Password=Q@x)11j+I224(oMgOJeo
+ 1041  /home/payara/payara41/bin/asadmin set server.resources.jdbc-connection-pool.SGD_POOL.property.Password=Q@x11jI224oMgOJeo
+ 1042  /home/payara/payara41/bin/asadmin set server.resources.jdbc-connection-pool.SGD_POOL.property.Password='Q@x)11j+I224(oMgOJeo'
+ 1043  /home/payara/payara41/bin/asadmin flush-connection-pool SGD_POOL
+ 1044  ps -aux | grep java
+ 1045  history | grep start
+ 1046  /home/payara/payara41/bin/asadmin stop-domain domain1
+ 1047  /home/payara/payara41/bin/asadmin start-domain domain1
+ 1048  history | grep start
+ 1049  /home/payara/payara41/bin/asadmin set server.resources.jdbc-connection-pool.SGD_POOL.property.Password="Q@x)11j+I224(oMgOJeo"
+ 1050  /home/payara/payara41/bin/asadmin flush-connection-pool SGD_POOL
+ 1051  /home/payara/payara41/bin/asadmin restart-domain
+ 1052  /home/payara/payara41/bin/asadmin ping-connection-pool SGD_POOL
+ 1053  /home/payara/payara41/bin/asadmin set server.resources.jdbc-connection-pool.SGD_POOL.property.Password='Q@x)11j+I224(oMgOJeo'
+ 1054  /home/payara/payara41/bin/asadmin restart-domain
+ 1055  /home/payara/payara41/bin/asadmin ping-connection-pool SGD_POOL
+ 1056* /home/payara/payara41/bin/asadmin set server.resources.jdbc-connection-pool.SGD_POOL.property.Password='Q@x$11j$I224$oMgOJeo'
+ 1057  /home/payara/payara41/bin/asadmin restart-domain
+ 1058  /home/payara/payara41/bin/asadmin ping-connection-pool SGD_POOL
+ 1059  /home/payara/payara41/bin/asadmin get server.resources.jdbc-connection-pool.*
+ 1060  /home/payara/payara41/bin/asadmin get server.resources.jdbc-connection-pool.SGD_POOL*
+ 1061* /home/payara/payara41/bin/asadmin list-jdbc-connection-pool-property --poolname SGD_POO
+ 1062  /home/payara/payara41/bin/asadmin get server.resources.jdbc-connection-pool.SGD_POOL.property.*
+ 1063  /home/payara/payara41/bin/asadmin set server.resources.jdbc-connection-pool.SGD_POOL.property.password='Q@x)11j+I224(oMgOJeo'
+ 1064  /home/payara/payara41/bin/asadmin restart-domain
+ 1065  /home/payara/payara41/bin/asadmin ping-connection-pool SGD_POOL
